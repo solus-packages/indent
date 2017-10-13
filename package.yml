@@ -1,0 +1,22 @@
+name        : indent
+version     : 2.2.11
+release     : 1
+source      :
+    - http://debian.lagis.at/debian/pool/main/i/indent/indent_2.2.11.orig.tar.gz : aaff60ce4d255efb985f0eb78cca4d1ad766c6e051666073050656b6753a0893
+homepage    : https://www.gnu.org/software/indent/
+license     :
+    - GPL-2.0
+summary     : C language source code formatting program
+component   : system.utils
+description : |
+     The indent program can be used to make code easier to read. It can also convert from one style of writing C to another. indent understands a substantial amount about the syntax of C, but it also attempts to cope with incomplete and misformed syntax.
+builddeps  :
+    - texi2html 
+setup      : |
+    %apply_patches
+    %configure CFLAGS="$CFLAGS -Wno-error -Wno-unused-variable -Wno-implicit-int -Wno-return-type -Wno-implicit-function-declaration -Wno-strict-overflow"
+build      : |
+    %make
+install    : |
+    %make_install
+    rm -rf $installdir/usr/doc

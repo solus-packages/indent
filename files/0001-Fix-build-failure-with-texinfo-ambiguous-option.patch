@@ -1,0 +1,35 @@
+From 87e784b67b55be81b9e63e659abab4364db08ee9 Mon Sep 17 00:00:00 2001
+From: Ikey Doherty <ikey@solus-project.com>
+Date: Thu, 12 Oct 2017 18:11:29 +0100
+Subject: [PATCH] Fix build-failure with texinfo (ambiguous option)
+
+Signed-off-by: Ikey Doherty <ikey@solus-project.com>
+---
+ doc/Makefile.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/doc/Makefile.in b/doc/Makefile.in
+index c17c469..6900155 100644
+--- a/doc/Makefile.in
++++ b/doc/Makefile.in
+@@ -663,14 +663,14 @@ html-monolithic: @PACKAGE@.html
+ html-split: @PACKAGE@_toc.html
+ 
+ @PACKAGE@.html: version.texi $(@PACKAGE@_TEXINFOS)
+-	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi`
++	$(TEXI2HTML) -expandinfo -number-sections -monolithic `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi`
+ 
+ @PACKAGE@_toc.html: version.texi $(@PACKAGE@_TEXINFOS)
+ 	case "$(TEXI2HTML)" in \
+ 	  *"/missing texi2html") \
+-	     $(TEXI2HTML) -expand info -number -nomenu -split section `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi` || exit 0 ;; \
++	     $(TEXI2HTML) -expand info -number-sections -nomenu -split section `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi` || exit 0 ;; \
+ 	  *) $(RM) @PACKAGE@_*.html ; \
+-	     $(TEXI2HTML) -expand info -number -nomenu -split section `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi` ;; \
++	     $(TEXI2HTML) -expand info -number-sections -nomenu -split section `if test -f @PACKAGE@.texinfo; then echo @PACKAGE@.texinfo; else echo $(srcdir)/@PACKAGE@.texinfo; fi` ;; \
+ 	esac
+ 
+ install-html-monolithic: @PACKAGE@.html
+-- 
+2.14.2
+

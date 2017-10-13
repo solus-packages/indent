@@ -1,0 +1,4 @@
+0001-Fix-build-failure-with-texinfo-ambiguous-option.patch
+indent-2.2.11-decimal_format.patch
+indent-2.2.11-LC_ALL.patch
+indent-2.2.11-segfault.patch
